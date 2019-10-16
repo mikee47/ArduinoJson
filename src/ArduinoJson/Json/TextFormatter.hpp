@@ -36,7 +36,7 @@ class TextFormatter {
       writeRaw("null");
     } else {
       writeRaw('\"');
-      while (*value) writeChar(*value++);
+      writeRaw(value);
       writeRaw('\"');
     }
   }
