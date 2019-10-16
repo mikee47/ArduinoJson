@@ -21,13 +21,14 @@ class StaticStringWriter {
   }
 
   size_t write(const uint8_t *s, size_t n) {
-    char *begin = p;
-    while (p < end && n > 0) {
-      *p++ = static_cast<char>(*s++);
-      n--;
+    size_t avail = size_t(end - p);
+    if (avail < n) {
+      n = avail;
     }
+    memcpy(p, s, n);
+    p += n;
     *p = '\0';
-    return size_t(p - begin);
+    return n;
   }
 
  private:

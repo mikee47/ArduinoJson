@@ -38,14 +38,7 @@ class DynamicStringWriter<String> {
   }
 
   size_t write(const uint8_t *s, size_t n) {
-    // CAUTION: Arduino String doesn't have append()
-    // and old version doesn't have size() either
-    _str->reserve(_str->length() + n);
-    while (n > 0) {
-      _str->operator+=(static_cast<char>(*s++));
-      n--;
-    }
-    return n;
+	  return _str->concat(reinterpret_cast<const char*>(s), n) ? n : 0;
   }
 
  private:
